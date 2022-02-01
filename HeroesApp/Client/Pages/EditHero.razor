@@ -1,0 +1,17 @@
+﻿@page "/heroes/edit/{id:int}"
+@inject IHeroService HeroService
+
+<HeroEditor hero="hero"></HeroEditor>
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    Hero hero = null;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        hero = await HeroService.GetHero(Id);
+    }
+}

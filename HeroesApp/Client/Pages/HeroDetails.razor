@@ -1,0 +1,54 @@
+﻿@page "/heroes/{id:int}"
+@inject IHeroService HeroService
+
+<h3>Hero Details</h3>
+
+@if (hero == null)
+{
+    <span>Hero Is loading...</span>
+}
+else
+{
+    <div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            <span>First Name</span>
+        </dt>
+        <dd class = "col-sm-10">
+            <span>@hero.FirstName</span>
+        </dd>
+        <dt class = "col-sm-2">
+            <span>Last Name</span>
+        </dt>
+        <dd class = "col-sm-10">
+            <span>@hero.LastName</span>
+        </dd>
+        <dt class = "col-sm-2">
+            <span>Hero Name</span>
+        </dt>
+        <dd class = "col-sm-10">
+            <span>@hero.HeroName</span>
+        </dd>
+        <dt class = "col-sm-2">
+            <span>Comic</span>
+        </dt>
+        <dd class = "col-sm-10">
+            <span>@hero.Comic.Name</span>
+        </dd>
+    </dl>
+</div>
+}
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    Hero hero = null;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        hero = await HeroService.GetHero(Id);
+    }
+}
