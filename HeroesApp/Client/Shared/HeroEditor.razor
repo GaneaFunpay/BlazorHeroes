@@ -25,15 +25,14 @@
                 {
                 <InputRadio Value="@comic.Id" /><span style="padding-left: 5px;">@comic.Name</span><br />
                 }
-        </InputRadioGroup>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-</EditForm>
+            </InputRadioGroup>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </EditForm>
 }
 
 @code {
-    [Parameter]
-    public Hero hero { get; set; } = new Hero();
+    [Parameter]public Hero hero { get; set; } = new Hero();
 
     void GoBack()
     {
@@ -44,17 +43,15 @@
     {
         await HeroService.GetComics();
     }
-
+    
     async void HandleSubmit()
     {
         hero.Comic = null;
-
         await JSRuntime.InvokeVoidAsync("console.log", hero);
 
         if (hero.Id == 0)
         {
             await HeroService.CreateHero(hero);
-
         }
         else
         {

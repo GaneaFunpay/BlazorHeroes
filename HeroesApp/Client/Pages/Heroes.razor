@@ -1,6 +1,7 @@
 ﻿@page "/heroes"
 @inject IHeroService HeroService
 @inject NavigationManager NavigationManager
+@inject IJSRuntime JsRuntime
 
 <h3>Heroes</h3>
 
@@ -31,7 +32,13 @@ else
                     <td>
                         <button class="btn btn-primay" @onclick="(() =>HeroDetails(hero.Id))">Details</button>
                         <button class="btn btn-primay" @onclick="(() =>EditHero(hero.Id))">Edit</button>
-                        <button class="btn btn-primay" @onclick="(() =>DeleteHero(hero.Id))">Delete</button>
+                        <PopConfirm ConfirmedChanged="EditConfirmation"/>
+                        @if (Confirm)
+                        {
+                            DeleteHero(hero.Id);
+                            Confirm = false;
+                        }
+                        @*<button class="btn btn-primay" @onclick="(() =>DeleteHero(hero.Id))">Delete</button>*@
                     </td>
                 </tr>
             }
@@ -40,6 +47,13 @@ else
 }
 
 @code {
+    public bool Confirm { get; set; }
+    public void EditConfirmation(bool response)
+    {
+        Confirm = response;
+        Console.WriteLine(Confirm);
+    }
+
     protected override async Task OnInitializedAsync()
     {
         await HeroService.GetHeroes();
@@ -55,9 +69,12 @@ else
         NavigationManager.NavigateTo($"/heroes/edit/{id}");
     }
 
-    void DeleteHero(int id)
+    async void  DeleteHero(int id)
     {
-        HeroService.DeleteHero(id);
+       
+        await HeroService.DeleteHero(id);
+        
+        
     }
 
     public void Dispose()
