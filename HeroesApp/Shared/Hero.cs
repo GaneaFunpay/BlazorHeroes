@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HeroesApp.Shared
 {
@@ -19,6 +18,7 @@ namespace HeroesApp.Shared
         public Comic? Comic { get; set; }
 
         [Required]
+        [Range(1,99, ErrorMessage = "Choose any comic!")]
         public int ComicId { get; set; } = 0;
 
     }

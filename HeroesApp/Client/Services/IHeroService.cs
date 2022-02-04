@@ -13,5 +13,6 @@ namespace HeroesApp.Client.Services
         Task<List<Hero>> CreateHero(Hero hero);
         Task<List<Hero>> UpdateHero(Hero hero, int id);
         Task<List<Hero>> DeleteHero(int id);
+        Task<string> Login(UserLoginDto user);
     }
 }

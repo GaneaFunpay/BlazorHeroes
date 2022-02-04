@@ -3,29 +3,45 @@
 @inject NavigationManager NavigationManager
 
 
+
 @if (hero != null)
 {
+    @if (hero.Id == 0)
+    {
+        <h3>Create Hero</h3>
+    }
+    else
+    {
+        <h3>Edit @hero.HeroName</h3>
+    }
+
     <EditForm  Model="@hero" OnValidSubmit="HandleSubmit">
+        <DataAnnotationsValidator />
         <div class="form-group">
-            <label>First Name</label>
+            <label for="firstname">First Name</label>
             <InputText @bind-Value="hero.FirstName" class="form-control"></InputText>
+            <ValidationMessage For="@(() => hero.FirstName)" />
         </div>
         <div class="form-group">
-            <label>Last Name</label>
+            <label for="lastname">Last Name</label>
             <InputText @bind-Value="hero.LastName" class="form-control"></InputText>
+            <ValidationMessage For="@(() => hero.LastName)" />
         </div>
         <div class="form-group">
-            <label>Hero Name</label>
+            <label for="heroname">Hero Name</label>
             <InputText @bind-Value="hero.HeroName" class="form-control"></InputText>
+            <ValidationMessage For="@(() => hero.HeroName)" />
         </div>
         <div class="form-group">
-            <label>Comic</label><br />
+            <label for="comic">Comic</label><br />
             <InputRadioGroup @bind-Value="hero.ComicId" class="form-control">
                 @foreach (var comic in HeroService.Comics)
                 {
                 <InputRadio Value="@comic.Id" /><span style="padding-left: 5px;">@comic.Name</span><br />
                 }
             </InputRadioGroup>
+            <ValidationMessage For="@(() => hero.ComicId)" />
+            
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </EditForm>
@@ -43,7 +59,7 @@
     {
         await HeroService.GetComics();
     }
-    
+
     async void HandleSubmit()
     {
         hero.Comic = null;

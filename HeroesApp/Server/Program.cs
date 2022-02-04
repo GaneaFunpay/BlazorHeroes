@@ -1,6 +1,7 @@
 using HeroesApp.Server.Data;
 using HeroesApp.Server.SeedData;
-using Microsoft.AspNetCore.ResponseCompression;
+using IdentityServer4;
+using IdentityServer4.Models;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -13,6 +14,12 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+builder.Services.AddIdentityServer()
+    .AddInMemoryApiResources(new List<ApiResource>())
+    .AddInMemoryIdentityResources(new List<IdentityResource>())
+    .AddInMemoryApiScopes(new List<ApiScope>())
+    .AddInMemoryClients(new List<Client>())
+    .AddDeveloperSigningCredential();
 
 var app = builder.Build();
 
@@ -36,7 +43,7 @@ else
 }
 
 app.UseHttpsRedirection();
-
+app.UseIdentityServer();
 app.UseBlazorFrameworkFiles();
 app.UseStaticFiles();
 

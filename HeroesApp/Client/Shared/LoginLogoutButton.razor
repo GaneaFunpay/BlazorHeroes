@@ -1,0 +1,16 @@
+﻿@inject NavigationManager NavigationManager
+@inject ILocalStorageService LocalStorage
+@inject AuthenticationStateProvider AuthStateProvider
+
+<AuthorizeView>
+    <Authorized>
+        <button @onclick="Logout" class="btn">Logout</button>
+    </Authorized>
+    <NotAuthorized>
+        <button @onclick="Login" class="btn">Login</button>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+
+}

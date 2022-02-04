@@ -30,8 +30,8 @@ else
                     <td>@hero.HeroName</td>
                     <td>@hero.Comic.Name</td>
                     <td>
-                        <button class="btn btn-primay" @onclick="(() =>HeroDetails(hero.Id))">Details</button>
-                        <button class="btn btn-primay" @onclick="(() =>EditHero(hero.Id))">Edit</button>
+                        <button class="btn" @onclick="(() =>HeroDetails(hero.Id))">Details</button>
+                        <button class="btn" @onclick="(() =>EditHero(hero.Id))">Edit</button>
                         <PopConfirm ConfirmedChanged="EditConfirmation"/>
                         @if (Confirm)
                         {
