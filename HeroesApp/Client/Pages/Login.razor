@@ -23,6 +23,7 @@
         var token = await result.Content.ReadAsStringAsync();
         await LocalStorage.SetItemAsync("token", token);
         await AuthStateProvider.GetAuthenticationStateAsync();
+        Console.WriteLine(token);
     }
 
 }

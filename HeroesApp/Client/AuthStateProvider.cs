@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Components.Authorization;
+﻿using Blazored.LocalStorage;
+using Microsoft.AspNetCore.Components.Authorization;
+using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Text.Json;
 
@@ -7,10 +9,12 @@ namespace HeroesApp.Client
     public class AuthStateProvider : AuthenticationStateProvider
     {
         private readonly ILocalStorageService _localStorageService;
+        private readonly HttpClient _httpClient;
 
-        public AuthStateProvider(ILocalStorageService localStorageService)
+        public AuthStateProvider(ILocalStorageService localStorageService, HttpClient httpClient)
         {
             _localStorageService = localStorageService;
+            _httpClient = httpClient;
         }
 
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
@@ -18,10 +22,13 @@ namespace HeroesApp.Client
             string token = await _localStorageService.GetItemAsStringAsync("token");
 
             var identity = new ClaimsIdentity();
+            _httpClient.DefaultRequestHeaders.Authorization = null;
 
             if (!string.IsNullOrEmpty(token))
             {
                  identity = new ClaimsIdentity(ParseClaimsFromJwt(token), "jwt");
+                _httpClient.DefaultRequestHeaders.Authorization = 
+                    new AuthenticationHeaderValue("Bearer", token.Replace("\"", ""));
             }
            
             var user = new ClaimsPrincipal(identity);
