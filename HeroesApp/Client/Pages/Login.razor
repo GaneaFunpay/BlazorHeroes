@@ -1,8 +1,8 @@
 ﻿@page "/login"
 @inject AuthenticationStateProvider AuthStateProvider
 @inject ILocalStorageService LocalStorage
-@inject IHeroService HeroService
 @inject HttpClient Http
+@inject NavigationManager NavigationManager
 
 <h3>Login</h3>
 
@@ -12,18 +12,37 @@
     <label for="password">Password</label>
     <InputText id="password" @bind-Value="user.Password" />
     <button type="submit">Login</button>
+    @if(error != "")
+    {
+        <div class="alert alert-danger" role="alert">
+            @error
+        </div>
+    }
 </EditForm>
 
 @code {
     UserLoginDto user = new UserLoginDto();
-
+    string error = "";
     async Task HandleLogin()
     {
-        var result = await Http.PostAsJsonAsync($"api/auth", user);
-        var token = await result.Content.ReadAsStringAsync();
-        await LocalStorage.SetItemAsync("token", token);
-        await AuthStateProvider.GetAuthenticationStateAsync();
-        Console.WriteLine(token);
-    }
+        var result = await Http.PostAsJsonAsync($"api/auth/login", user);
+        var response = await result.Content.ReadAsStringAsync();
 
+        if(response == "User not found")
+        {
+            error = response;
+        }
+        else if(response == "Wrong Password")
+        {
+            error = response;
+        }
+        else
+        {
+            await LocalStorage.SetItemAsync("token", response);
+            await AuthStateProvider.GetAuthenticationStateAsync();
+            //Console.WriteLine(response);
+            error = "";
+            NavigationManager.NavigateTo("/");
+        } 
+    }
 }

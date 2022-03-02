@@ -8,6 +8,7 @@
     </Authorized>
     <NotAuthorized>
         <button @onclick="Login" class="btn">Login</button>
+        <button @onclick="Register" class="btn">Register</button>
     </NotAuthorized>
 </AuthorizeView>
 
@@ -15,6 +16,11 @@
     void Login()
     {
         NavigationManager.NavigateTo("login");
+    }
+
+    void Register()
+    {
+        NavigationManager.NavigateTo("register");
     }
 
     async Task Logout()

@@ -62,72 +62,10 @@ a, .btn-link {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
-/* Color Theme Swatches in Hex */
-.random-1-hex {
-    color: #0A0D0D;
-}
-
-.random-2-hex {
-    color: #70C999;
-}
-
-.random-3-hex {
-    color: #99DEB3;
-}
-
-.random-4-hex {
-    background: #62A17D;
-}
 
 table {
     background: #99DEB3;
     box-shadow: 0 0 5px;
-}
-
-/* Color Theme Swatches in RGBA */
-.random-1-rgba {
-    color: rgba(9, 12, 13, 1);
-}
-
-.random-2-rgba {
-    color: rgba(112, 201, 153, 1);
-}
-
-.random-3-rgba {
-    color: rgba(153, 221, 178, 1);
-}
-
-.random-4-rgba {
-    color: rgba(98, 160, 124, 1);
-}
-
-table {
-    color: rgba(252, 244, 181, 1);
-}
-
-/* Color Theme Swatches in HSLA */
-.random-1-hsla {
-    color: hsla(187, 13, 4, 1);
-}
-
-.random-2-hsla {
-    color: hsla(147, 45, 61, 1);
-}
-
-.random-3-hsla {
-    color: hsla(142, 50, 73, 1);
-}
-
-.random-4-hsla {
-    color: hsla(145, 24, 50, 1);
-}
-
-table {
-    color: hsla(53, 93, 85, 1);
-}
-
-.pop-container {
-    
 }
 
 .popconfirm {

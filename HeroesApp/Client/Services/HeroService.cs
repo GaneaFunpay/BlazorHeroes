@@ -1,6 +1,5 @@
 ﻿using HeroesApp.Shared;
 using System.Net.Http.Json;
-using Blazored.LocalStorage;
 
 namespace HeroesApp.Client.Services
 {
@@ -50,12 +49,12 @@ namespace HeroesApp.Client.Services
             return Heroes;
         }
 
-        public async Task<string> Login(UserLoginDto user)
+        public async Task Register(UserLoginDto user)
         {
-            var result = await _httpClient.PostAsJsonAsync($"api/auth", user);
-            var token = await result.Content.ReadAsStringAsync();
-            return token;
+            await _httpClient.PostAsJsonAsync($"api/auth/register", user);
         }
+
+        
 
         public async Task<List<Hero>> UpdateHero(Hero hero, int id)
         {

@@ -11,16 +11,6 @@ namespace HeroesApp.Server.Controllers
     [ApiController]
     public class HeroController : ControllerBase
     {
-        static List<Comic> comics = new List<Comic> {
-            new Comic { Id = 1, Name = "Marvel"},
-            new Comic { Id = 2, Name = "DC"}
-        };
-
-        static List<Hero> heroes = new List<Hero> {
-            new Hero { Id = 1, FirstName = "Peter", LastName = "Parker", HeroName = "Spiderman", Comic = comics[0] },
-            new Hero { Id = 2, FirstName = "Bruce", LastName = "Wayne", HeroName = "Batman", Comic = comics[1] },
-        };
-
         private readonly AppDbContext _context;
 
         public HeroController(AppDbContext context)
